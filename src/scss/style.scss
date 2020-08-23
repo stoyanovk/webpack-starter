@@ -1,10 +1,11 @@
+@import "./global";
+
 $color: rgba(tomato, 0.4);
 
 body {
-  background-color: $color;
+  background: url("./images/pacan.jpeg");
 }
 input {
-
 }
 label {
   display: grid;

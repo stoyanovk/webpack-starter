@@ -1,3 +1,2 @@
 import fn from "./scripts/function";
-import '../style.scss'
-
+// import "../sass/style.scss";
