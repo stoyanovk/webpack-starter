@@ -1,13 +1,24 @@
 const path = require("path");
+const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
+
+function generateHtmlPlugins(templateDir) {
+  const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir));
+  return templateFiles.map((file) => {
+    return new HtmlWebpackPlugin({
+      filename: file,
+      template: path.resolve(__dirname, `${templateDir}/${file}`),
+      inject: false,
+    });
+  });
+}
+
+const htmlPlugins = generateHtmlPlugins("./src/html/views");
 const plugins = [
-  new HtmlWebpackPlugin({
-    template: "./src/index.html",
-  }),
   new MiniCssExtractPlugin({
     filename: "./styles/style.css",
   }),
@@ -23,7 +34,7 @@ const plugins = [
       },
     ],
   }),
-];
+].concat(htmlPlugins);
 
 module.exports = (arg) => {
   if (arg.mode === "production") {
@@ -42,6 +53,8 @@ module.exports = (arg) => {
     module: {
       rules: [
         { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+
+        
 
         {
           test: /\.(s[ac]ss)$/i,
@@ -73,6 +86,13 @@ module.exports = (arg) => {
               loader: "sass-loader",
             },
           ],
+        },
+
+
+        {
+          test: /\.html$/,
+          include: path.resolve(__dirname, 'src/html/includes'),
+          use: ['raw-loader']
         },
       ],
     },

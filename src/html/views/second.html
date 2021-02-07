@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <% var data = {title:"Second"} %> 
+  <%=_.template(require('../includes/head.html').default)(data) %>
+  <body>
+    second
+    <a href="./index.html">main page</a>
+  </body>
+
+  <%= require('../includes/footer.html').default %>
+</html>
