@@ -9,7 +9,7 @@ const plugins = [
     template: "./src/index.html",
   }),
   new MiniCssExtractPlugin({
-    filename: "style.css",
+    filename: "./styles/style.css",
   }),
   new CopyPlugin({
     patterns: [
@@ -24,6 +24,7 @@ const plugins = [
     ],
   }),
 ];
+
 module.exports = (arg) => {
   if (arg.mode === "production") {
     plugins.push(new CleanWebpackPlugin());
